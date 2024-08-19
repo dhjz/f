@@ -53,17 +53,23 @@
     .control button { display: block; margin: 0 0 10px 0; }
     .main-wrap { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
     .text-area { width: calc(100vw - 112px); height: 95vh; margin-left: -14px; background: rgba(0, 0, 0, 0.6); color: #fff; border-color: #666; }
+    @media screen and (max-width: 700px) {
+      button, .btn { padding: 0 4px; }
+      .main-wrap { justify-content: flex-start; }
+      .text-area { width: calc(100vw - 50px); margin-left: 4px; }
+    }
   </style>
 </head>
 <body class="wh100">
   <canvas class="bg" id="canvas_star"></canvas>
   <div id="app">
     <div class="bg pwd-wrap" v-show="!showMain">
-      <input type="text" v-model="password" placeholder="输入密码, 回车确认" @keyup.enter="enter">
+      <input type="password" v-model="password" placeholder="输入密码, 回车确认" @keyup.enter="enter">
     </div>
     <div class="main-wrap" v-show="showMain">
       <div class="control">
         <button class="exit-app" @click="exit">退出</button>
+        <button class="exit-app" @click="open">原文</button>
         <button class="exit-app" @click="save">保存</button>
       </div>
       <textarea v-model="textCont" class="text-area" spellcheck="false"></textarea>
