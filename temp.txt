@@ -3,3 +3,4 @@ dhjz/dhjz.github.io/contents/dtab.json
 软件: https://www.ghxi.com/   https://www.fy6b.com/   https://www.sixyin.com/  https://www.uy5.net/
 电视: https://dsxys.pro/  https://www.dmxq.net/  https://tv.pilipili6.top/
 GPT: https://chat18.aichatos.xyz/ https://kimi.moonshot.cn/   https://metaso.cn/
+皮肤12: <layout_s width="130" height="22"><cpu x="14" y="2" width="106" align="0" show="1"/><memory x="68" y="2" width="106" align="0" show="1"/>
