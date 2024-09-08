@@ -5,3 +5,72 @@ dhjz/dhjz.github.io/contents/dtab.json  dhjz@konosuba52.onmicrosoft.com
 GPT: https://chat18.aichatos.xyz/ https://kimi.moonshot.cn/   https://metaso.cn/
 皮肤12: <layout_s width="130" height="22"><cpu x="14" y="2" width="106" align="0" show="1"/><memory x="68" y="2" width="106" align="0" show="1"/>
 https://www.123pan.cn/s/HQeA-4CpSh.html
+
+package main
+
+import (
+    "fmt"
+    "log"
+    "syscall"
+    "unsafe"
+)
+
+var (
+    user32                   = syscall.NewLazyDLL("user32.dll")
+    setWindowsHookEx         = user32.NewProc("SetWindowsHookExW")
+    callNextHookEx           = user32.NewProc("CallNextHookEx")
+    unhookWindowsHookEx      = user32.NewProc("UnhookWindowsHookEx")
+    getMessage               = user32.NewProc("GetMessageW")
+    translateMessage         = user32.NewProc("TranslateMessage")
+    dispatchMessage          = user32.NewProc("DispatchMessageW")
+)
+
+const (
+    WH_MOUSE_LL = 14
+    WM_MOUSEWHEEL = 0x020A
+)
+
+type MSLLHOOKSTRUCT struct {
+    Pnt  POINT
+    MouseData uint32
+    Flags     uint32
+    Time      uint32
+    DwExtra   uintptr
+}
+
+type POINT struct {
+    X, Y int32
+}
+
+var (
+    hHook syscall.Handle
+)
+
+func hookProc(nCode int, wParam uintptr, lParam uintptr) uintptr {
+    if nCode >= 0 && wParam == WM_MOUSEWHEEL {
+        hookStruct := (*MSLLHOOKSTRUCT)(unsafe.Pointer(lParam))
+        delta := int32(hookStruct.MouseData >> 16)
+        if delta > 0 {
+            fmt.Println("Scrolled Up")
+        } else {
+            fmt.Println("Scrolled Down")
+        }
+    }
+    ret, _, _ := callNextHookEx.Call(uintptr(hHook), uintptr(nCode), wParam, lParam)
+    return ret
+}
+
+func main() {
+    hInstance := syscall.GetModuleHandle(nil)
+    hHook, _, _ = setWindowsHookEx.Call(WH_MOUSE_LL, syscall.NewCallback(hookProc), hInstance, 0)
+    if hHook == 0 {
+        log.Fatal("Failed to set hook")
+    }
+
+    msg := new(syscall.MSG)
+    for {
+        _, _, _ = getMessage.Call(uintptr(unsafe.Pointer(msg)), 0, 0, 0)
+        translateMessage.Call(uintptr(unsafe.Pointer(msg)))
+        dispatchMessage.Call(uintptr(unsafe.Pointer(msg)))
+    }
+}
