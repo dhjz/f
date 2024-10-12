@@ -4,7 +4,7 @@ export const onRequest = async ({ request, env }) => {
   // response.headers.set('Content-Type', 'application/json')
   if (type == 'list') {
     const list = await env.dhjz.list();
-    return new Response(list);
+    return new Response(JSON.stringify(list));
   } else if (type == 'get' && key) {
     const val = await env.dhjz.get(key);
     return new Response(val);
