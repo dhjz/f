@@ -103,6 +103,17 @@ function dnotify(txt, time) {
   dnotifyTimer = setTimeout(function(){ document.getElementById('dnotify').style.display = 'none'; }, time ? time : 1500)
 }  
 
+window.linkUtil = {
+  put() {
+    const str = prompt('请输入短链key|val', '')
+    let arr = str.split('|')
+    if (arr.length != 2) return alert('格式错误: key|val')
+    axios.get(`/t?type=put&key=${arr[0].trim()}&val=${encodeURIComponent(arr[1].trim())}`).then(() => {
+      alert('添加成功')
+    })
+  }
+}
+
 function showStar2() {
   let speed = 1;
   class StarSky {
