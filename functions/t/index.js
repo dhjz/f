@@ -5,11 +5,17 @@ export const onRequest = async ({ request, env }) => {
   if (type == 'list') {
     const list = await env.dhjz.list();
     return new Response(JSON.stringify(list));
-  } else if (type == 'get' && key) {
+  } else if (type == 'getlink' && key) {
     const val = await env.dhjz.get('link:' + key);
     return new Response(val);
-  } else if (type == 'put' && key && val) {
+  } else if (type == 'putlink' && key && val) {
     await env.dhjz.put('link:' + key, val);
+    return new Response('添加成功:' + key + '|' + val);
+  } else if (type == 'get' && key) {
+    const val = await env.dhjz.get(key);
+    return new Response(val);
+  } else if (type == 'put' && key && val) {
+    await env.dhjz.put(key, val);
     return new Response('添加成功:' + key + '|' + val);
   }
   
