@@ -1,5 +1,5 @@
-export const onRequest = async (ctx) => {
-  const { request, params = {} } = ctx
-  const list = await ctx.env.dhjz.list();
-  return new Response(`${task}::${request.url}, list: ${JSON.stringify(list)}, params: ${JSON.stringify(params)}`);
+export const onRequest = async ({ request, env }) => {
+  const params = Object.fromEntries(new URL(request.url).searchParams);
+  const list = await env.dhjz.list();
+  return new Response(`${request.url}, list: ${JSON.stringify(list)}, params: ${JSON.stringify(params)}`);
 };
