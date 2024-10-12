@@ -69,6 +69,7 @@
     <div class="main-wrap" v-show="showMain">
       <div class="control">
         <button class="exit-app" @click="exit">退出</button>
+        <button class="exit-app" @click="short">短链</button>
         <button class="exit-app" @click="open">原文</button>
         <button class="exit-app" @click="save">保存</button>
       </div>
@@ -78,7 +79,8 @@
   <div id="loading" class="hide">处理中...</div>
   <script src="js/crypto-js.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://registry.npmmirror.com/vue/3.4.38/files/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js"></script>
+  <!-- <script src="https://registry.npmmirror.com/vue/3.4.38/files/dist/vue.global.prod.js"></script> -->
   <script src="js/util.js"></script>
   <script src="js/index.min.js"></script>
 
