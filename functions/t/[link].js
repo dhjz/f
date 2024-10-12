@@ -1,7 +1,10 @@
 export const onRequest = async (ctx) => {
   const { request, params = {} } = ctx
-  const task = await ctx.env.dhjz.get("dhjz");
-  await ctx.env.dhjz.put("test", new Date().toLocaleString());
-  console.log(task, request.headers);
-  return new Response(`${task}::${request.url}暂未到获取ip${JSON.stringify(params)}`);
+  if (params.link) {
+    const link = await ctx.env.dhjz.get(params.link);
+    if (link) {
+      return Response.redirect(link)
+    }
+  }
+  return new Response(`该短链不存在或已失效`);
 };
