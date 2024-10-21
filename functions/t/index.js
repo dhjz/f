@@ -34,36 +34,6 @@ export const onRequest = async ({ request, env }) => {
   return new Response(`请传入正确的参数type, key, val` + jsonStr + '|||' + jsonStr1);
 };
 
-async function readStreamAsJson(stream) {
-  const chunks = [];
-
-  return new Promise((resolve, reject) => {
-      stream.on('data', chunk => {
-          chunks.push(chunk);
-      });
-
-      stream.on('end', () => {
-          // 将 Buffer 数组连接成一个完整的 Buffer
-          const buffer = Buffer.concat(chunks);
-          // 将 Buffer 转换为字符串
-          const jsonString = buffer.toString();
-          // 解析为 JSON 对象
-          try {
-              const jsonData = JSON.parse(jsonString);
-              resolve(jsonData);
-          } catch (error) {
-              resolve(jsonString)
-              // reject(error);
-          }
-      });
-
-      stream.on('error', err => {
-          reject(err);
-      });
-  });
-}
-
-
 async function parseReqData(request) {
   const { headers } = request;
   if (request.method === "GET") {
