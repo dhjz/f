@@ -11,6 +11,7 @@ export const onRequest = async ({ request, env }) => {
   // try {
   //   jsonStr1 = await parseReqData(request)
   // } catch (e) { }
+  jsonStr1 = await parseReqData(request)
 
   response.headers.set('Content-Type', 'application/json')
   if (type == 'list') {
@@ -68,13 +69,13 @@ async function parseReqData(request) {
   if (request.method === "GET") {
       return Object.fromEntries(new URL(request.url).searchParams)
   } else {//request method = post
-      const contentType = headers.get('content-type') || '';
+      const contentType = headers.get('content-type') || headers.get('Content-Type') || '';
       if (contentType.includes('application/json')) {
           return await request.json();
       } else if (contentType.includes('application/text')) {
-        return request.text();
+        return await request.text();
       } else if (contentType.includes('text/html')) {
-        return request.text();
+        return await request.text();
       } else if (contentType.includes('form')) {
           const formData = await request.formData();
           const body = {};
