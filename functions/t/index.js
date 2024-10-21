@@ -34,7 +34,7 @@ export const onRequest = async ({ request, env }) => {
     return new Response('添加成功, ' + key + '|' + val);
   }
   
-  return new Response(`请传入正确的参数type, key, val` + jsonStr + '|||' + jsonStr1);
+  return new Response(`请传入正确的参数type, key, val` + jsonStr + '|||' + JSON.stringify(jsonStr1));
 };
 
 async function parseReqData(request) {
