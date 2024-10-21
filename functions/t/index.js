@@ -8,10 +8,10 @@ export const onRequest = async ({ request, env }) => {
       jsonStr = await readStreamAsJson(request.body)
     } catch (e) {}
   }
-  try {
-    jsonStr1 = await parseReqData(request)
-  } catch (e) {}
-  response.headers.set('Content-Type', 'application/json')
+  // try {
+  //   jsonStr1 = await parseReqData(request)
+  // } catch (e) {}
+  // response.headers.set('Content-Type', 'application/json')
   if (type == 'list') {
     const list = await env.dhjz.list();
     return new Response(JSON.stringify(list));
