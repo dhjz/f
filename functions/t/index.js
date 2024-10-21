@@ -10,7 +10,7 @@ export const onRequest = async ({ request, env }) => {
   // }
   try {
     jsonStr1 = await parseReqData(request)
-  } catch (e) { jsonStr1 = e.message}
+  } catch (e) { }
 
   response.headers.set('Content-Type', 'application/json')
   if (type == 'list') {
