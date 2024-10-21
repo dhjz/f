@@ -2,7 +2,7 @@ export const onRequest = async ({ request, env }) => {
   const params = Object.fromEntries(new URL(request.url).searchParams) || {};
   const { type, key, val } = params
   // let jsonStr = '666'
-  // let jsonStr1 = '777'
+  let jsonStr1 = '777'
   // if (request.method.toLowerCase() === 'post') {
   //   try {
   //     jsonStr = await readStreamAsJson(request.body)
@@ -11,12 +11,11 @@ export const onRequest = async ({ request, env }) => {
   // try {
   //   jsonStr1 = await parseReqData(request)
   // } catch (e) { }
-  // jsonStr1 = await parseReqData(request)
+  jsonStr1 = await parseReqData(request)
   // if ((request.method !== "GET")) {
   //   jsonStr1 = await request.json()
   // }
 
-  response.headers.set('Content-Type', 'application/json')
   if (type == 'list') {
     const list = await env.dhjz.list();
     return new Response(JSON.stringify(list));
@@ -34,7 +33,7 @@ export const onRequest = async ({ request, env }) => {
     return new Response('添加成功, ' + key + '|' + val);
   }
   
-  return new Response(`请传入正确的参数type, key, val`);
+  return new Response(`请传入正确的参数type, key, val, ${JSON.stringify(jsonStr1)}`);
 };
 
 async function parseReqData(request) {
