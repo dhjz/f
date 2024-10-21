@@ -11,7 +11,10 @@ export const onRequest = async ({ request, env }) => {
   // try {
   //   jsonStr1 = await parseReqData(request)
   // } catch (e) { }
-  jsonStr1 = await parseReqData(request)
+  // jsonStr1 = await parseReqData(request)
+  if ((request.method !== "GET")) {
+    jsonStr1 = await request.json()
+  }
 
   response.headers.set('Content-Type', 'application/json')
   if (type == 'list') {
