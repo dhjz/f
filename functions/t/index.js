@@ -8,9 +8,9 @@ export const onRequest = async ({ request, env }) => {
   //     jsonStr = await readStreamAsJson(request.body)
   //   } catch (e) {}
   // }
-  try {
-    jsonStr1 = await parseReqData(request)
-  } catch (e) { }
+  // try {
+  //   jsonStr1 = await parseReqData(request)
+  // } catch (e) { }
 
   response.headers.set('Content-Type', 'application/json')
   if (type == 'list') {
