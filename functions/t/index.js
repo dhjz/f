@@ -1,6 +1,7 @@
 export const onRequest = async ({ request, env, next }) => {
   const params = Object.fromEntries(new URL(request.url).searchParams) || {};
   let { type, key, val } = params
+  // post请求好像设置了跨域也无法跨域的
   let data = await parseReqData(request)
 
   if (typeof data === 'string') {
