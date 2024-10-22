@@ -1,20 +1,13 @@
 export const onRequest = async ({ request, env }) => {
   const params = Object.fromEntries(new URL(request.url).searchParams) || {};
-  const { type, key, val } = params
-  // let jsonStr = '666'
-  let jsonStr1 = '777'
-  // if (request.method.toLowerCase() === 'post') {
-  //   try {
-  //     jsonStr = await readStreamAsJson(request.body)
-  //   } catch (e) {}
-  // }
-  // try {
-  //   jsonStr1 = await parseReqData(request)
-  // } catch (e) { }
-  jsonStr1 = await parseReqData(request)
-  // if ((request.method !== "GET")) {
-  //   jsonStr1 = await request.json()
-  // }
+  let { type, key, val } = params
+  let data = await parseReqData(request)
+
+  if (!type && data && data.type) {
+    type = data.type
+    key = data.key
+    val = data.val
+  }
 
   if (type == 'list') {
     const list = await env.dhjz.list();
