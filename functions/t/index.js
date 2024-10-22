@@ -3,6 +3,12 @@ export const onRequest = async ({ request, env }) => {
   let { type, key, val } = params
   let data = await parseReqData(request)
 
+  if (typeof data === 'string') {
+    try {
+      data = JSON.parse(data)
+    } catch (e) {}
+  }
+
   if (!type && data && data.type) {
     type = data.type
     key = data.key
@@ -33,7 +39,7 @@ export const onRequest = async ({ request, env }) => {
 async function parseReqData(request) {
   const { headers } = request;
   if (request.method === "GET") {
-      return Object.fromEntries(new URL(request.url).searchParams)
+      return Object.fromEntries(new URL(request.url).searchParams) || {}
   } else {//request method = post
       const contentType = headers.get('content-type') || headers.get('Content-Type') || '';
       if (contentType.includes('application/json')) {
