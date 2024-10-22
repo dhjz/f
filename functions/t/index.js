@@ -1,4 +1,8 @@
-export const onRequest = async ({ request, env }) => {
+export const onRequest = async ({ request, env, next }) => {
+  const response = await next();
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+
   const params = Object.fromEntries(new URL(request.url).searchParams) || {};
   let { type, key, val } = params
   let data = await parseReqData(request)
