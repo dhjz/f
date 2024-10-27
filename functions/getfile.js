@@ -28,8 +28,8 @@ export const onRequest = async (ctx) => {
   return new Response(uint8Array, {
     headers: {
       'Content-Type': type || 'application/octet-stream', // 文件类型
-      'Content-Disposition': `attachment; filename="${name}"`, // 提示浏览器下载
-      'Content-Length': uint8Array.byteLength,
+      // 'Content-Disposition': `attachment; filename="${name}"`, // 提示浏览器下载
+      // 'Content-Length': uint8Array.byteLength,
     },
   });
 };
