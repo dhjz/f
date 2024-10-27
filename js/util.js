@@ -105,6 +105,16 @@ function dnotify(txt, time) {
   dnotifyTimer = setTimeout(function(){ document.getElementById('dnotify').style.display = 'none'; }, time ? time : 1500)
 }  
 
+function $copy(text) {
+  let inputElement = document.createElement('input');
+  inputElement.value = text;
+  document.body.appendChild(inputElement)
+  inputElement.select()
+  document.execCommand('copy', true);
+  inputElement.parentNode.removeChild(inputElement)
+  return true
+}
+
 window.linkUtil = {
   put() {
     const str = prompt('请输入短链key|val', '')

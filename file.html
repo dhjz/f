@@ -45,7 +45,9 @@
     .file-img {width: 60px; max-height: 60px;}
     li{ list-style-type:none; }
     @media screen and (max-width:700px){
+      body { max-width: 94%; }
       .file_list li span {display:none !important;}
+      .file_list li.dir:before { padding: 0 2px; }
       .back.ftr { display: none; }
       input#search { display: inline-block; margin: 10px 0 0; }
       button { margin-top: 6px; }
@@ -109,7 +111,7 @@
       if (window.fileList.length) document.getElementById('file_list').innerHTML = tempList.map(item => {
         return `<li class="file ${item.ftype}">
             <a target="_blank" href="#" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}${item.expiration}</span><span class="size">${getUnit(item.size)}</span>
-            <i onclick="delOne('${item.key}')" class="del">删除</i>
+            <i onclick="copyOne('${item.id}')" class="del">删除</i><i onclick="delOne('${item.key}')" class="del">删除</i>
           </li>`
       }).join('')
     }
@@ -206,6 +208,12 @@
           // initData()
         })
       }
+    }
+
+    function copyOne(id) {
+      const str = `${location.origin}/getfile?id=${id}`
+      $copy(str)
+      dnotify('复制成功: ' + str)
     }
 
     function download(blob, name) {
