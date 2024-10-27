@@ -108,7 +108,7 @@
       }
       if (window.fileList.length) document.getElementById('file_list').innerHTML = tempList.map(item => {
         return `<li class="file ${item.ftype}">
-            <a target="_blank" href="#" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}</span><span class="size">${getUnit(item.size)}</span>
+            <a target="_blank" href="#" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}${item.expiration}</span><span class="size">${getUnit(item.size)}</span>
             <i onclick="delOne('${item.key}')" class="del">删除</i>
           </li>`
       }).join('')
@@ -123,6 +123,7 @@
             ...metadata,
             key: item.name,
             ftype: getType(metadata.name),
+            expiration: item.expiration ? ('(' + now(false, new Date(item.expiration * 1000)) + '过期)') : '',
             origin: item
           }
         })
@@ -132,6 +133,11 @@
     }
 
     initData()
+
+    function toggleWrap() {
+      var wrap = document.getElementById("file_wrap")
+      wrap.className = wrap.className ? '' : 'w50'
+    }
 
     // 上传文件
     document.getElementById('file').addEventListener('input', (e) => {
@@ -171,7 +177,10 @@
           val: base64,
           expiration: file.size > 5 * 1024 * 1024 ? 5 * 24 * 60 * 60 : null , // 过期时间 秒
           metadata: JSON.stringify(metadata)
-        }).then(() => dnotify('上传成功'))
+        }).then(() => {
+          dnotify('上传成功')
+          initData()
+        })
       }
       reader.readAsArrayBuffer(file)
     }
@@ -185,7 +194,10 @@
 
     function delOne(key) {
       if (window.confirm("确定删除该文件吗")) {   
-        request.get(`/t?type=del&key=${encodeURIComponent(key)}`).then(() => dnotify('删除成功'))
+        request.get(`/t?type=del&key=${encodeURIComponent(key)}`).then(() => {
+          dnotify('删除成功')
+          initData()
+        })
       }
     }
 
