@@ -19,7 +19,7 @@ export const onRequest = async ({ request, env, next }) => {
     metadata = data.metadata
   }
 
-  const options = {}
+  let options = {}
   if (expiration) options.expiration = expiration
   if (metadata) options.metadata = JSON.parse(metadata)
   if (!Object.keys(options)) options = null
