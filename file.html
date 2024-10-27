@@ -115,7 +115,7 @@
     }
 
     function initData() {
-      request.get(`/t?type=list&prefix=${encodeURIComponent('tempfile:')}`).then((res) => {
+      request.get(`/t?type=list&prefix=${encodeURIComponent('tempfile:')}&t=${new Date().getTime()}`).then((res) => {
         console.log(res);
         window.fileList = (res.keys || []).map(item => {
           const metadata = item.metadata || {}
