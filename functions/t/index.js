@@ -20,9 +20,10 @@ export const onRequest = async ({ request, env, next }) => {
   }
 
   let options = {}
-  if (expiration) options.expiration = expiration
+  let currSec = new Date().getTime() / 1000
+  if (expiration) options.expiration = expiration < currSec ? (currSec + expiration) : expiration
   if (metadata) options.metadata = JSON.parse(metadata)
-  if (!Object.keys(options)) options = null
+  if (!Object.keys(options).length) options = null
 
   if (type == 'list') {
     const list = await env.dhjz.list(prefix ? { prefix } : null);
