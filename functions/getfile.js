@@ -27,7 +27,7 @@ export const onRequest = async (ctx) => {
   // 创建响应
   return new Response(uint8Array, {
     headers: {
-      'Content-Type': 'application/octet-stream', // 文件类型
+      'Content-Type': type || 'application/octet-stream', // 文件类型
       'Content-Disposition': `attachment; filename="${name}"`, // 提示浏览器下载
       'Content-Length': uint8Array.byteLength,
     },
