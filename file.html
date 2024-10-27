@@ -108,7 +108,7 @@
       }
       if (window.fileList.length) document.getElementById('file_list').innerHTML = tempList.map(item => {
         return `<li class="file ${item.ftype}">
-            <a target="_blank" href="${rootdm}${item.path}" onclick="downloadFile('${item.id}')">${item.name}</a><span class='sha'>${item.id}</span><span class="size">${getUnit(item.size)}</span>
+            <a target="_blank" href="${rootdm}${item.path}" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}</span><span class="size">${getUnit(item.size)}</span>
             <i onclick="delOne('${item.path}', '${item.sha}')" class="del">删除</i>
           </li>`
       }).join('')
@@ -176,8 +176,8 @@
       reader.readAsArrayBuffer(file)
     }
 
-    function downloadFile(id) {
-      request.get(`/t?type=get&key=${encodeURIComponent('tempfile:' + id)}`).then(data => {
+    function downloadFile(key) {
+      request.get(`/t?type=get&key=${encodeURIComponent(key)}`).then(data => {
         const one = fileList.find(x => x.id == id) || {}
         download(new Blob([base64ToBuffer(data)], { type: one.type }), one.name || '下载文件')
       })
