@@ -127,7 +127,7 @@
             origin: item
           }
         })
-        // window.fileList.sort((a, b) => a.type < b.type ? -1 : 1)
+        window.fileList.sort((a, b) => a.id > b.id ? -1 : 1)
         initFileList()
       })
     }
