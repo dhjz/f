@@ -87,10 +87,14 @@
     window.request = axios.create({
       timeout: 30000,
     });
-    request.interceptors.response.use(function (response) {
-      console.log('请求成功', response);
+    request.interceptors.response.use(function (res) {
+      console.log('请求成功', res);
       hideLoading()
-      return response;
+      if (res.status >= 200 && res.status < 400) {
+        return res.data;
+      } else {
+        return Promise.reject(res.statusText || '请求错误');
+      }
     }, function (error) {
       hideLoading()
       return Promise.reject(error);
