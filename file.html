@@ -65,7 +65,7 @@
   </style>
 </head>
 <body ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)">
-  <p style="margin: 0;">版本号: 20241027-1，超过5M过期时间5天，最大支持18M</p>
+  <p style="margin: 0;">版本号: 20241027-1，超过5M过期时间5天，最大支持18M，操作会有几秒延迟</p>
   <input type="file" id="file" class="filepond" name="filepond" />
   <h2>当前目录：<i id="repo"></i>
     <span onclick="document.getElementById('file').click()" class="back">上传文件</span>
@@ -183,7 +183,7 @@
           metadata: JSON.stringify(metadata)
         }).then(() => {
           dnotify('上传成功')
-          initData()
+          // initData()
         })
       }
       reader.readAsArrayBuffer(file)
@@ -203,7 +203,7 @@
         showLoading('删除文件中...')
         request.get(`/t?type=del&key=${encodeURIComponent(key)}`).then(() => {
           dnotify('删除成功')
-          initData()
+          // initData()
         })
       }
     }
