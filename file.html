@@ -84,6 +84,18 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   <script>
+    window.request = axios.create({
+      timeout: 30000,
+    });
+    request.interceptors.response.use(function (response) {
+      console.log('请求成功', response);
+      hideLoading()
+      return response;
+    }, function (error) {
+      hideLoading()
+      return Promise.reject(error);
+    });
+
     window.fileList = []
     function initFileList(searchVal) {
       let tempList = window.fileList
@@ -96,8 +108,6 @@
             <i onclick="delOne('${item.path}', '${item.sha}')" class="del">删除</i>
           </li>`
       }).join('')
-
-      document.getElementById('repo').innerHTML = baseRepo + '/' + (paths.length ? paths[paths.length - 1] : '')
     }
 
     function initData() {
