@@ -73,7 +73,8 @@ window.gitUtils = {
   }
 }
 
-function now() {
+function now(isNumber) {
+  if (isNumber) return new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString().replace(/\D/g, '').substring(0,14)
   return new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0,19)
 }
 

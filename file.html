@@ -82,7 +82,7 @@
   <div id="loading" class="hide">处理中...</div>
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+  <script src="js/util.js"></script>
   <script>
     window.request = axios.create({
       timeout: 30000,
@@ -108,8 +108,8 @@
       }
       if (window.fileList.length) document.getElementById('file_list').innerHTML = tempList.map(item => {
         return `<li class="file ${item.ftype}">
-            <a target="_blank" href="${rootdm}${item.path}" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}</span><span class="size">${getUnit(item.size)}</span>
-            <i onclick="delOne('${item.path}', '${item.sha}')" class="del">删除</i>
+            <a target="_blank" href="#" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}</span><span class="size">${getUnit(item.size)}</span>
+            <i onclick="delOne('${item.key}')" class="del">删除</i>
           </li>`
       }).join('')
     }
@@ -171,7 +171,7 @@
           val: base64,
           expiration: file.size > 5 * 1024 * 1024 ? 5 * 24 * 60 * 60 : null , // 过期时间 秒
           metadata: JSON.stringify(metadata)
-        }).then(() => alert('上传成功'))
+        }).then(() => dnotify('上传成功'))
       }
       reader.readAsArrayBuffer(file)
     }
@@ -181,6 +181,12 @@
         const one = fileList.find(x => x.id == id) || {}
         download(new Blob([base64ToBuffer(data)], { type: one.type }), one.name || '下载文件')
       })
+    }
+
+    function delOne(key) {
+      if (window.confirm("确定删除该文件吗")) {   
+        request.get(`/t?type=del&key=${encodeURIComponent(key)}`).then(() => dnotify('删除成功'))
+      }
     }
 
     function download(blob, name) {
@@ -200,10 +206,6 @@
       }
     }
 
-    function now(isNumber) {
-      if (isNumber) return new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString().replace(/\D/g, '').substring(0,14)
-      return new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString().replace('T', ' ').substring(0,19)
-    }
 
     function getType(val) {
       if (/\.(jpg|jpeg|png|gif)$/i.test(val)) return 'img'
@@ -251,15 +253,6 @@
       }
 
       return bytes.buffer;
-    }
-
-    function showLoading(val) {
-      document.getElementById('loading').innerHTML = val || '处理中...'
-      document.getElementById('loading').className = ''
-    }
-
-    function hideLoading() {
-      document.getElementById('loading').className = 'hide'
     }
 
   </script>

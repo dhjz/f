@@ -40,6 +40,9 @@ export const onRequest = async ({ request, env, next }) => {
   } else if (type == 'put' && key && val) {
     await env.dhjz.put(key, val, options);
     return new Response('添加成功, ' + key + '|' + (val.length > 1000 ? '' : val));
+  } else if (type == 'del' && key) {
+    const val = await env.dhjz.delete(key);
+    return new Response(val);
   }
   
   return new Response(`请传入正确的参数type, key, val, ${JSON.stringify(jsonStr1)}`);
