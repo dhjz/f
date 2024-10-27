@@ -111,7 +111,7 @@
       if (window.fileList.length) document.getElementById('file_list').innerHTML = tempList.map(item => {
         return `<li class="file ${item.ftype}">
             <a target="_blank" href="#" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}${item.expiration}</span><span class="size">${getUnit(item.size)}</span>
-            <i onclick="copyOne('${item.id}')" class="del">删除</i><i onclick="delOne('${item.key}')" class="del">删除</i>
+            <i onclick="copyOne('${item.id}')" class="del">地址</i><i onclick="delOne('${item.key}')" class="del">删除</i>
           </li>`
       }).join('')
     }
