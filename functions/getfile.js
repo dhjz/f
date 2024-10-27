@@ -28,6 +28,7 @@ export const onRequest = async ({ request, env, next }) => {
   return new Response(uint8Array, {
     headers: {
       'Content-Type': type || 'application/octet-stream', // 文件类型
+      'Content-Disposition': `inline; filename="${name}"`, // 提示浏览器下载
       // 'Content-Disposition': `attachment; filename="${name}"`, // 提示浏览器下载
       // 'Content-Length': uint8Array.byteLength,
     },
