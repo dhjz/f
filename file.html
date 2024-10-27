@@ -65,7 +65,7 @@
   </style>
 </head>
 <body ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)">
-  <p style="margin: 0;">版本号: 20241027-1</p>
+  <p style="margin: 0;">版本号: 20241027-1，超过5M过期时间5天</p>
   <input type="file" id="file" class="filepond" name="filepond" />
   <h2>当前目录：<i id="repo"></i>
     <span onclick="document.getElementById('file').click()" class="back">上传文件</span>
@@ -171,6 +171,7 @@
           type: file.type,
           id: key
         }
+        showLoading('上传文件中...')
         request.post(`/t`, {
           type: 'put',
           key: 'tempfile:' + key,
@@ -186,6 +187,7 @@
     }
 
     function downloadFile(key) {
+      showLoading('下载文件中...')
       request.get(`/t?type=get&key=${encodeURIComponent(key)}`).then(data => {
         const one = fileList.find(x => x.key == key) || {}
         one && download(new Blob([base64ToBuffer(data)], { type: one.type }), one.name || '下载文件')
@@ -193,7 +195,8 @@
     }
 
     function delOne(key) {
-      if (window.confirm("确定删除该文件吗")) {   
+      if (window.confirm("确定删除该文件吗")) {
+        showLoading('删除文件中...')
         request.get(`/t?type=del&key=${encodeURIComponent(key)}`).then(() => {
           dnotify('删除成功')
           initData()
