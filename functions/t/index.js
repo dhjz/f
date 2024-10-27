@@ -1,6 +1,6 @@
 export const onRequest = async ({ request, env, next }) => {
   const params = Object.fromEntries(new URL(request.url).searchParams) || {};
-  let { type, key, val } = params
+  let { type, key, val, prefix, expiration, metadata } = params
   // post请求好像设置了跨域也无法跨域的
   let data = await parseReqData(request)
 
@@ -14,22 +14,30 @@ export const onRequest = async ({ request, env, next }) => {
     type = data.type
     key = data.key
     val = data.val
+    prefix = data.prefix
+    expiration = data.expiration
+    metadata = data.metadata
   }
 
+  const options = {}
+  if (expiration) options.expiration = expiration
+  if (metadata) options.metadata = JSON.parse(metadata)
+  if (!Object.keys(options)) options = null
+
   if (type == 'list') {
-    const list = await env.dhjz.list();
+    const list = await env.dhjz.list(prefix ? { prefix } : null);
     return new Response(JSON.stringify(list));
   } else if (type == 'getlink' && key) {
     const val = await env.dhjz.get('link:' + key);
     return new Response(val);
   } else if (type == 'putlink' && key && val) {
-    await env.dhjz.put('link:' + key, val);
+    await env.dhjz.put('link:' + key, val, options);
     return new Response('添加成功, link:' + key + '|' + val);
   } else if (type == 'get' && key) {
     const val = await env.dhjz.get(key);
     return new Response(val);
   } else if (type == 'put' && key && val) {
-    await env.dhjz.put(key, val);
+    await env.dhjz.put(key, val, options);
     return new Response('添加成功, ' + key + '|' + val);
   }
   
