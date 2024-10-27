@@ -162,7 +162,7 @@
           id: key
         }
         request.post(`/t`, {
-          type: put,
+          type: 'put',
           key: 'tempfile:' + key,
           val: base64,
           expiration: 5 * 24 * 60 * 60, // 过期时间 秒
