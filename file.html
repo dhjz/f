@@ -169,7 +169,7 @@
           type: 'put',
           key: 'tempfile:' + key,
           val: base64,
-          expiration: 5 * 24 * 60 * 60, // 过期时间 秒
+          expiration: file.size > 5 * 1024 * 1024 ? 5 * 24 * 60 * 60 : null , // 过期时间 秒
           metadata: JSON.stringify(metadata)
         }).then(() => alert('上传成功'))
       }
