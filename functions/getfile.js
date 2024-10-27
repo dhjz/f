@@ -12,7 +12,7 @@ export const onRequest = async ({ request, env, next }) => {
   if (arr.length > 3) {
     base64Data = arr[3]
     type = arr[1]
-    name = arr[1]
+    name = arr[2]
   } else {
     base64Data = arr[0]
   }
