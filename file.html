@@ -121,7 +121,7 @@
           const metadata = item.metadata || {}
           return {
             ...metadata,
-            id: item.name,
+            key: item.name,
             ftype: getType(metadata.name),
             origin: item
           }
@@ -177,7 +177,7 @@
     }
 
     function downloadFile(id) {
-      request.get(`/t?type=get&key=${encodeURIComponent('tempfile:' + key)}`).then(data => {
+      request.get(`/t?type=get&key=${encodeURIComponent('tempfile:' + id)}`).then(data => {
         const one = fileList.find(x => x.id == id) || {}
         download(new Blob([base64ToBuffer(data)], { type: one.type }), one.name || '下载文件')
       })
