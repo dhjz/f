@@ -178,7 +178,7 @@
         request.post(`/t`, {
           type: 'put',
           key: 'tempfile:' + key,
-          val: base64,
+          val: `${file.size}|${file.type}|${file.name}|${base64}`,
           expiration: file.size > 5 * 1024 * 1024 ? 5 * 24 * 60 * 60 : null , // 过期时间 秒
           metadata: JSON.stringify(metadata)
         }).then(() => {
@@ -193,7 +193,8 @@
       showLoading('下载文件中...')
       request.get(`/t?type=get&key=${encodeURIComponent(key)}`).then(data => {
         const one = fileList.find(x => x.key == key) || {}
-        one && download(new Blob([base64ToBuffer(data)], { type: one.type }), one.name || '下载文件')
+        const arr = data.split('|')
+        one && download(new Blob([base64ToBuffer(arr.length > 3 ? arr[3] : arr[0])], { type: one.type }), one.name || '下载文件')
       })
     }
 
