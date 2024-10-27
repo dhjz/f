@@ -178,8 +178,8 @@
 
     function downloadFile(key) {
       request.get(`/t?type=get&key=${encodeURIComponent(key)}`).then(data => {
-        const one = fileList.find(x => x.id == id) || {}
-        download(new Blob([base64ToBuffer(data)], { type: one.type }), one.name || '下载文件')
+        const one = fileList.find(x => x.key == key) || {}
+        one && download(new Blob([base64ToBuffer(data)], { type: one.type }), one.name || '下载文件')
       })
     }
 
