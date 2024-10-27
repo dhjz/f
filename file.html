@@ -65,7 +65,7 @@
   </style>
 </head>
 <body ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)">
-  <p style="margin: 0;">版本号: 20241027-1，超过5M过期时间5天</p>
+  <p style="margin: 0;">版本号: 20241027-1，超过5M过期时间5天，最大支持18M</p>
   <input type="file" id="file" class="filepond" name="filepond" />
   <h2>当前目录：<i id="repo"></i>
     <span onclick="document.getElementById('file').click()" class="back">上传文件</span>
@@ -158,6 +158,9 @@
 
     function putFile(file) {
       console.log('upload file:', file)
+      if (file.size > 18 * 1024 * 1024) {
+        return alert('上传文件不超过18M')
+      }
       const reader = new FileReader()
       reader.onload = async () => {
         const arrayBuffer = reader.result;
