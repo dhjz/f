@@ -1,4 +1,4 @@
-export const onRequest = async (ctx) => {
+export const onRequest = async ({ request, env, next }) => {
   const params = Object.fromEntries(new URL(request.url).searchParams) || {};
   let { id } = params
   if (!id) {
