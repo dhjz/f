@@ -9,3 +9,5 @@ GPT: https://chat18.aichatos.xyz/ https://kimi.moonshot.cn/ https://metaso.cn/ h
 文件快传: https://www.ppzhilian.com/ https://www.wenshushu.cn/ https://upfile.live/zh-cn/ 局域网: https://snapdrop.net/ https://webrtc.touchczy.top/
 github加速: https://github.hscsec.cn/dhjz/dcontrol https://kkgithub.com/ 521github.com
 wol centos https://blog.51cto.com/u_16099249/10059048 zhouqiang ZHOUqiang081522&
+
+https://github.com/dhjz/dcontrol
