@@ -15,8 +15,8 @@ export const onRequest = async ({ request, env, next }) => {
     key = data.key
     val = data.val
     prefix = data.prefix
-    expiration = data.expiration
-    metadata = data.metadata
+    expiration = data.expiration // 过期时间: 秒
+    metadata = data.metadata // 额外数据, json
   }
 
   let options = {}
