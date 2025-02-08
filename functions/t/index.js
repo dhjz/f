@@ -45,7 +45,7 @@ export const onRequest = async ({ request, env, next }) => {
     return new Response(val);
   }
   
-  return new Response(`请传入正确的参数type, key, val, ${JSON.stringify(jsonStr1)}`);
+  return new Response(`请传入正确的参数type, key, val, ${JSON.stringify({ params, data  })}`);
 };
 
 // import { RequestData } from 'cloudflare-worker-request-data';  github.com/he-yang/cloudflare-worker-request-data
