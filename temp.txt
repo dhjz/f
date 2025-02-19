@@ -3,7 +3,7 @@ dhjz/dhjz.github.io/contents/dtab.json dhjz@konosuba52.onmicrosoft.com
 软件: https://www.ghxi.com/ https://www.fy6b.com/ https://www.sixyin.com/ https://www.uy5.net/
 电视: https://imyshare.com/ https://dsxys.pro/ https://www.dmxq.net/ https://tv.pilipili6.top/ https://gaze.run/ https://zhuiyingmao.vip/ https://lkvod.me/  https://ncat.app/  https://dl.hhkan0.com/ http://kekys.com
  https://dl.hhkan0.com/ https://www.alipan.com/s/hKHWxqz69E9
-音乐: http://tools.liumingye.cn http://ghyinyue.com https://www.xmwav.com/ https://flac.life/  https://www.hifini.com/ http://home.199311.xyz:25244/
+音乐: http://tools.liumingye.cn http://ghyinyue.com https://www.xmwav.com/ https://flac.life/  https://www.hifini.com/ http://home.199311.xyz:25244/ http://home.199311.xyz:9001/music/
 GPT: https://chat18.aichatos.xyz/ https://kimi.moonshot.cn/ https://metaso.cn/ https://site.tinycms.xyz/ https://freegpt.tech/
 皮肤12: <layout_s width="130" height="22"><cpu x="14" y="2" width="106" align="0" show="1"/><memory x="68" y="2" width="106" align="0" show="1"/>
 文件快传: https://www.ppzhilian.com/ https://www.wenshushu.cn/ https://upfile.live/zh-cn/ 局域网: https://snapdrop.net/ https://webrtc.touchczy.top/
