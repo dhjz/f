@@ -11,3 +11,5 @@ github加速: https://github.hscsec.cn/dhjz/dcontrol https://kkgithub.com/ 521gi
 wol centos https://blog.51cto.com/u_16099249/10059048 zhouqiang ZHOUqiang081522&
 
 https://github.com/dhjz/dcontrol
+
+trafic 皮肤12 <layout_s width="180" height="25"><cpu x="10" y="3" /><memory x="60" y="3"/><down x="110" y="3" />
