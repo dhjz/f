@@ -6,7 +6,7 @@ dhjz/dhjz.github.io/contents/dtab.json dhjz@konosuba52.onmicrosoft.com
 音乐: http://tools.liumingye.cn http://ghyinyue.com https://www.xmwav.com/ https://flac.life/  https://www.hifini.com/ http://home.199311.xyz:25244/ http://home.199311.xyz:9001/music/
 GPT: https://chat18.aichatos.xyz/ https://kimi.moonshot.cn/ https://metaso.cn/ https://site.tinycms.xyz/ https://freegpt.tech/
 皮肤12: <layout_s width="130" height="22"><cpu x="14" y="2" width="106" align="0" show="1"/><memory x="68" y="2" width="106" align="0" show="1"/>
-文件快传: https://www.ppzhilian.com/ https://www.wenshushu.cn/ https://upfile.live/zh-cn/ 局域网: https://snapdrop.net/ https://webrtc.touchczy.top/
+文件快传: https://www.ppzhilian.com/ https://www.wenshushu.cn/ https://upfile.live/zh-cn/ 局域网: https://snapdrop.net/ https://webrtc.touchczy.top/ https://pairdrop.net/
 github加速: https://github.hscsec.cn/dhjz/dcontrol https://kkgithub.com/ 521github.com
 wol centos https://blog.51cto.com/u_16099249/10059048 zhouqiang ZHOUqiang081522&
 
