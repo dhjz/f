@@ -10,7 +10,7 @@
     .tools{ position: absolute; top: 2px; right: 18px;     display: flex;  flex-direction: column; align-items: flex-end; }
     .tools button{ display: block; margin-bottom: 4px; }
     .tools div button{ display: inline-block; margin-left: 4px; }
-    .tools select{ display: block; margin-bottom: 4px; }
+    .tools select{ display: block; margin-bottom: 4px; font-weight: bold; font-size: 15px; }
     input, select { background-color: #fff; border-radius: 4px; border: 1px solid #dcdfe6;  color: #333; line-height: 26px; height: 26px;  padding: 0 6px; outline: none;}
     button{ background: #409eff; border: none; color: #fff; line-height: 26px; padding: 0px 6px; border-radius: 4px; cursor: pointer; }
   </style>
@@ -38,7 +38,7 @@
   <script>
       var $q = (val) => document.querySelector(val)
 
-      $q('#htmlInd').innerHTML = new Array(10).fill().map((_, i) => `<option value="${i + 1}">html${i + 1}</option>`).join('')
+      $q('#htmlInd').innerHTML = new Array(10).fill().map((_, i) => `<option value="${i + 1}">html ${i + 1}</option>`).join('')
 
       window.syncUrl = 'https://t.199311.xyz/t'
       window.editor = ace.edit("editor");
@@ -47,7 +47,8 @@
       window.language = "html";
       window.tabSize = 2
       window.filename = ''
-      window.htmlInd = 1
+      window.htmlInd = getStorage('htmlInd') || 1
+      $q('#htmlInd').value = htmlInd
       editor.setTheme("ace/theme/" + theme);
       editor.session.setMode("ace/mode/" + language);
       editor.setFontSize(15);
@@ -72,6 +73,7 @@
 
       $q('#htmlInd').addEventListener('change', (e) => {
         htmlInd = $q('#htmlInd').value
+        setStorage('htmlInd', htmlInd)
         getHtml()
       })
       setTimeout(() => getHtml(), 300)
