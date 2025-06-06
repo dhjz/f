@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML编辑器</title>
+  <style>
+    * { margin: 0; padding: 0;  }
+    #editor{ width: 100%; height: 100vh;}
+    .tools{ position: absolute; top: 2px; right: 18px;     display: flex;  flex-direction: column; align-items: flex-end; }
+    .tools button{ display: block; margin-bottom: 4px; }
+    .tools div button{ display: inline-block; margin-left: 4px; }
+    .tools select{ display: block; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <div id="editor"></div>
+  <div id="tempEditor" style="display: none;"></div>
+  <div class="tools">
+    <div><button onclick="save()">保存</button></div>
+    <div><button onclick="down()">下载</button></div>
+    <div><select id="htmlInd"><option value="1">测试html-1</option><option value="2">测试html-2</option><option value="3">测试html-3</option><option value="4">测试html-4</option><option value="5">测试html-5</option></select></div>
+    <select id="size"><option value="2">tabSize-2</option><option value="4">tabSize-4</option></select>
+    <button onclick="formatCode()">格式化</button>
+  </div>
+  <script src="js/ace.min.js"></script>
+  <script src="js/ext-language_tools.min.js"></script>
+  <script src="js/keybinding-vscode.min.js"></script>
+  <script src="js/theme-chrome.min.js"></script>
+  <script src="js/mode-html.min.js"></script>
+  <script src="js/worker-html.js"></script>
+  <script src="js/snippets/html.min.js"></script>
+  <script src="js/beautify-html.min.js"></script>
+  <script src="js/beautify.min.js"></script> 
+  <script>
+      var $q = (val) => document.querySelector(val)
+      window.syncUrl = 'https://f.199311.xyz/t'
+      window.editor = ace.edit("editor");
+      //设置风格和语言（更多风格和语言，请到github上相应目录查看）
+      window.theme = "chrome";
+      window.language = "html";
+      window.tabSize = 2
+      window.filename = ''
+      window.htmlInd = 1
+      editor.setTheme("ace/theme/" + theme);
+      editor.session.setMode("ace/mode/" + language);
+      editor.setFontSize(15);
+      //设置只读（true时只读，用于展示代码）
+      editor.setReadOnly(false);
+      //自动换行,设置为off关闭
+      editor.setOption("wrap", "free");
+      //启用提示菜单
+      ace.require("ace/ext/language_tools");
+      editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+      });
+      editor.setKeyboardHandler('ace/keyboard/vscode');
+      
+      $q('#size').addEventListener('change', (e) => {
+        let size = parseInt($q('#size').value)
+        tabSize = size
+        editor.session.setTabSize(size);
+      })
+
+      $q('#htmlInd').addEventListener('change', (e) => {
+        htmlInd = $q('#htmlInd').value
+        getHtml()
+      })
+      setTimeout(() => getHtml(), 300)
+
+      function getHtml() {
+        fetch(`${syncUrl}?type=get&key=link:html${htmlInd}`, {
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+        }).then(res => res.text()).then(data => {
+          editor.setValue(data)
+        })
+      }
+
+
+      function save() {
+        fetch(syncUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'put',
+            key: `link:html${htmlInd}`,
+            val: editor.getValue()
+          })
+        })
+        .then(() => alert('保存成功')) 
+      }
+
+      function down() {
+        downloadText(editor.getValue(), `html${htmlInd}.html`)
+      }
+
+      document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.key === 's') {
+          event.preventDefault(); // 阻止默认保存操作
+          save()
+        }
+      });
+
+      // 格式化代码函数
+      function formatCode() {
+        const options = { indent_size: tabSize, space_in_empty_paren: true, css: {newline_between_rules: false, selector_separator_newline: false, end_with_newline: false, indent_empty_lines: false} }
+        editor.setValue(html_beautify(editor.getValue(), options));
+      }
+
+      function getStorage(key) {
+        let result = localStorage.getItem(key)
+        try {
+          return JSON.parse(result)
+        } catch {
+          return result 
+        }
+      }
+      function setStorage(key, val) {
+        if (val || val === 0) localStorage.setItem(key, JSON.stringify(val))
+      }
+
+      function download(blob, name) {
+        if (window.navigator.msSaveOrOpenBlob) {
+          navigator.msSaveBlob(blob, name)
+        } else {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = name;
+          document.body.appendChild(link);
+          link.click();
+          URL.revokeObjectURL(url);
+          setTimeout(() => link.remove(), 200);
+        }
+      }
+
+      function downloadText(text, name) {
+        download(new Blob([text], { type: 'text/plain;charset=utf-8' }), name)
+      }
+
+  </script>
+</body>
+</html>
