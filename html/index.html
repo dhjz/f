@@ -22,7 +22,7 @@
     <div><button onclick="save()">保存</button></div>
     <div><button onclick="down()">下载</button></div>
     <div><button onclick="openLink()">访问</button></div>
-    <div><select id="htmlInd"><option value="1">测试html-1</option><option value="2">测试html-2</option><option value="3">测试html-3</option><option value="4">测试html-4</option><option value="5">测试html-5</option></select></div>
+    <div><select id="htmlInd"></select></div>
     <select id="size"><option value="2">tabSize-2</option><option value="4">tabSize-4</option></select>
     <button onclick="formatCode()">格式化</button>
   </div>
@@ -37,6 +37,9 @@
   <script src="js/beautify.min.js"></script> 
   <script>
       var $q = (val) => document.querySelector(val)
+
+      $q('#htmlInd').innerHTML = new Array(10).fill().map((_, i) => `<option value="${i + 1}">html${i + 1}</option>`).join('')
+
       window.syncUrl = 'https://t.199311.xyz/t'
       window.editor = ace.edit("editor");
       //设置风格和语言（更多风格和语言，请到github上相应目录查看）
