@@ -3,6 +3,9 @@ export const onRequest = async (ctx) => {
   if (params.link) {
     const link = await ctx.env.dhjz.get('link:' + params.link);
     if (link) {
+      if (params.link.startsWith('html')) {
+        return new Response(link, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+      }
       return Response.redirect(decodeURIComponent(link))
     }
   }
