@@ -17,3 +17,5 @@ trafic 皮肤12 <layout_s width="180" height="25"><cpu x="10" y="3" /><memory x=
 https://www.15um.com/tools/douyin.php
 
 ALL_PROXY=http://127.0.0.1:10809 git clone  --depth=1
+
+npm install -g rimraf
