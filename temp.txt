@@ -19,3 +19,4 @@ https://www.15um.com/tools/douyin.php   https://api.xingchenfu.xyz/API/dyjx.php?
 ALL_PROXY=http://127.0.0.1:10809 git clone  --depth=1
 
 npm install -g rimraf
+go clean -cache  go clean -modcache
