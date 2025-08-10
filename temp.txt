@@ -20,3 +20,4 @@ ALL_PROXY=http://127.0.0.1:10809 git clone  --depth=1
 
 npm install -g rimraf
 go clean -cache  go clean -modcache
+vfox config proxy.enable true
