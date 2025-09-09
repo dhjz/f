@@ -18,6 +18,7 @@ trafic 皮肤12 <layout_s width="180" height="25"><cpu x="10" y="3" /><memory x=
 https://www.15um.com/tools/douyin.php   https://api.xingchenfu.xyz/API/dyjx.php?url=
 
 ALL_PROXY=http://127.0.0.1:10809 git clone  --depth=1
+$env:HTTP_PROXY="http://127.0.0.1:10809"; $env:HTTPS_PROXY="http://127.0.0.1:10809"; yarn add unplugin-auto-import/vite
 
 npm install -g rimraf
 go clean -cache  go clean -modcache
