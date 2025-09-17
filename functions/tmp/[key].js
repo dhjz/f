@@ -30,6 +30,7 @@ export async function onRequest(context) {
         headers: {
           // 从元数据中读取并设置正确的文件类型
           'Content-Type': metadata.type || 'application/octet-stream',
+          'Content-Disposition': `inline;filename="${encodeURIComponent(metadata.name)}"`
         //   'Content-Length': metadata.size, // 设置原始文件大小
         },
       });
@@ -38,6 +39,7 @@ export async function onRequest(context) {
       return new Response(value, {
         headers: {
           'Content-Type': metadata.type || 'application/octet-stream',
+          'Content-Disposition': `inline;filename="${encodeURIComponent(metadata.name)}"`
         },
       });
     }
