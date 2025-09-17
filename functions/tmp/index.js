@@ -41,7 +41,7 @@ export async function onRequest(context) {
     // --- GZIP COMPRESSION END ---
 
     // const key = crypto.randomUUID();
-    const key = Math.random().toString(32).slice(-5)
+    const key = Math.random().toString(32).slice(-4)
 
     const metadata = {
       name: file.name,
