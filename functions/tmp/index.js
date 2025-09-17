@@ -72,6 +72,6 @@ export async function onRequest(context) {
 
   } catch (error) {
     console.error('Error uploading file:', error);
-    return new Response('An error occurred while uploading the file.', { status: 500 });
+    return new Response('An error occurred while uploading the file.' + error.message, { status: 500 });
   }
 }
