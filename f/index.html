@@ -176,9 +176,9 @@
                         const res = await fetch(`/tmp`, {
                             method: 'POST',
                             body: formData
-                        });
+                        }).then(res => res.json());
                         console.log(res)
-                        if (!res.data) {
+                        if (!res || !res.data) {
                             this.errorMessage = '上传失败，请重试';
                             return;
                         }
