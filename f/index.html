@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>临时文件上传</title>
+    <script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/vue/3.5.17/vue.global.prod.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);color: #fff; overflow-x: hidden; }
+        .wrap { min-height: 100vh;display: flex;align-items: center;justify-content: center; width: 100%; }
+        .container { width: 90%; max-width: 800px; padding: 24px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); }
+        .title { text-align: center; font-size: 2.5em; margin-bottom: 10px; background: linear-gradient(45deg, #00dbde, #fc00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(0, 219, 222, 0.5); }
+        .subtitle { text-align: center; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px; font-size: 1.1em; }
+        .upload-zone { border: 2px dashed rgba(0, 219, 222, 0.5); border-radius: 15px; padding: 60px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; background: rgba(0, 219, 222, 0.05); }
+        .upload-zone::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, #00dbde, #fc00ff, #00dbde); border-radius: 15px; opacity: 0; z-index: -1; transition: opacity 0.3s ease; }
+        .upload-zone:hover { border-color: #00dbde; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 219, 222, 0.3); }
+        .upload-zone:hover::before { opacity: 0.3; }
+        .upload-zone.dragover { background: rgba(0, 219, 222, 0.1); border-color: #fc00ff; }
+        .upload-icon { font-size: 4em; margin-bottom: 20px; color: #00dbde; }
+        .upload-text { font-size: 1.3em; margin-bottom: 10px; }
+        .upload-hint { color: rgba(255, 255, 255, 0.6); font-size: 0.9em; }
+        .file-input { display: none; }
+        .file-info { margin-top: 20px; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); display: none; }
+        .file-info.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .file-details { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .file-name { font-size: 1.2em; font-weight: bold; color: #00dbde; }
+        .file-size { color: rgba(255, 255, 255, 0.7); }
+        .progress-bar { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; margin-bottom: 20px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #00dbde, #fc00ff); width: 0%; transition: width 0.3s ease; }
+        .upload-btn { width: 100%; padding: 15px; background: linear-gradient(45deg, #00dbde, #fc00ff); border: none; border-radius: 10px; color: white; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .upload-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 219, 222, 0.5); }
+        .upload-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .upload-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); transition: left 0.5s; }
+        .upload-btn:hover::before { left: 100%; }
+        .result-section { margin-top: 20px; padding: 20px; background: rgba(0, 255, 0, 0.1); border-radius: 10px; border: 1px solid rgba(0, 255, 0, 0.3); display: none; }
+        .result-section.active { display: block; animation: fadeIn 0.3s ease; }
+        .result-title { font-size: 1.2em; margin-bottom: 10px; color: #00ff00; }
+        .result-link { word-break: break-all; padding: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 5px; border: 1px solid rgba(0, 255, 0, 0.2); }
+        .copy-btn { margin: 10px 10px 0 0; padding: 8px 20px; background: rgba(0, 255, 0, 0.2); border: 1px solid rgba(0, 255, 0, 0.5); border-radius: 5px; color: #00ff00; cursor: pointer; transition: all 0.3s ease; }
+        .copy-btn:hover { background: rgba(0, 255, 0, 0.3); }
+        .error-section { margin-top: 20px; padding: 20px; background: rgba(255, 0, 0, 0.1); border-radius: 10px; border: 1px solid rgba(255, 0, 0, 0.3); display: none; }
+        .error-section.active { display: block; animation: fadeIn 0.3s ease; }
+        .error-title { font-size: 1.2em; margin-bottom: 10px; color: #ff0000; }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .particle { position: absolute; width: 4px; height: 4px; background: rgba(0, 219, 222, 0.5); border-radius: 50%; animation: float 10s infinite linear; }
+        @keyframes float { from { transform: translateY(100vh) rotate(0deg); } to { transform: translateY(-100px) rotate(360deg); } }
+    </style>
+</head>
+<body id="app">
+    <div class="particles" id="particles"></div>
+    
+    <div class="wrap" @dragover.prevent="handleDragOver"
+                 @dragleave.prevent="handleDragLeave"
+                 @drop.prevent="handleDrop">
+        <div class="container">
+            <h1 class="title">临时文件传输站</h1>
+            <p class="subtitle">安全、快速、便捷的文件上传服务</p>
+            
+            <div class="upload-zone" 
+                 @click="triggerFileInput"
+                 :class="{ 'dragover': isDragOver }">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">拖拽文件到此处或点击上传</div>
+                <div class="upload-hint">支持所有文件类型，最大支持 25MB</div>
+                <input type="file" class="file-input" ref="fileInput" @change="handleFileSelect">
+            </div>
+            
+            <div class="file-info" :class="{ 'active': selectedFile }">
+                <div class="file-details">
+                    <span class="file-name">{{ selectedFile ? selectedFile.name : '' }}</span>
+                    <span class="file-size">{{ selectedFile ? formatFileSize(selectedFile.size) : '' }}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" :style="{ width: uploadProgress + '%' }"></div>
+                </div>
+                <button class="upload-btn" 
+                        @click="uploadFile" 
+                        :disabled="isUploading || !selectedFile">
+                    {{ isUploading ? '上传中...' : '开始上传' }}
+                </button>
+            </div>
+            
+            <div class="result-section" :class="{ 'active': uploadResult }">
+                <div class="result-title">✅ 上传成功！</div>
+                <div class="result-link">{{ uploadResult }}</div>
+                <button class="copy-btn" @click="copyToClipboard">复制链接</button>
+                <button class="copy-btn" @click="openLink">打开</button>
+                <button class="copy-btn" @click="downLink">下载</button>
+            </div>
+            
+            <div class="error-section" :class="{ 'active': errorMessage }">
+                <div class="error-title">❌ 上传失败</div>
+                <div>{{ errorMessage }}</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    selectedFile: null,
+                    isDragOver: false,
+                    isUploading: false,
+                    uploadProgress: 0,
+                    uploadResult: '',
+                    errorMessage: ''
+                }
+            },
+            methods: {
+                triggerFileInput() {
+                    this.$refs.fileInput.click();
+                },
+                handleDragOver(e) {
+                    this.isDragOver = true;
+                },
+                handleDragLeave(e) {
+                    this.isDragOver = false;
+                },
+                handleDrop(e) {
+                    this.isDragOver = false;
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        this.selectFile(files[0]);
+                    }
+                },
+                handleFileSelect(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        this.selectFile(file);
+                    }
+                },
+                selectFile(file) {
+                    // 检查文件大小
+                    if (file.size > 25 * 1024 * 1024) {
+                        this.errorMessage = '文件大小不能超过 25MB';
+                        return;
+                    }
+                    
+                    this.selectedFile = file;
+                    this.uploadResult = '';
+                    this.errorMessage = '';
+                    this.uploadProgress = 0;
+                },
+                formatFileSize(bytes) {
+                    if (bytes === 0) return '0 Bytes';
+                    const k = 1024;
+                    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                    const i = Math.floor(Math.log(bytes) / Math.log(k));
+                    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+                },
+                async uploadFile() {
+                    if (!this.selectedFile || this.isUploading) return;
+                    
+                    this.isUploading = true;
+                    this.uploadProgress = 0;
+                    this.uploadResult = '';
+                    this.errorMessage = '';
+                    
+                    const formData = new FormData();
+                    formData.append('file', this.selectedFile);
+                    
+                    // 模拟上传进度
+                    const progressInterval = setInterval(() => {
+                        if (this.uploadProgress < 90) {
+                            this.uploadProgress += Math.random() * 10;
+                        }
+                    }, 200);
+                    try {
+                        
+                        // 这里替换为你的实际上传接口
+                        const res = await fetch(`/tmp`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        console.log(res)
+                        if (!res.data) {
+                            this.errorMessage = '上传失败，请重试';
+                            return;
+                        }
+                        // 模拟接口调用
+                        // await new Promise(resolve => setTimeout(resolve, 2000));
+                        
+                        // 模拟返回结果
+                        // const mockResponse = {
+                        //     data: `https://example.com/files/${Date.now()}_${this.selectedFile.name}`
+                        // };
+                        
+                        this.uploadResult = `${location.origin}/tmp/${res.data}`;
+                        
+                    } catch (error) {
+                        this.errorMessage = '上传失败，请重试';
+                        console.error('Upload error:', error);
+                    } finally {
+                        this.isUploading = false;
+                        clearInterval(progressInterval);
+                        this.uploadProgress = 100;
+                    }
+                },
+                copyToClipboard() {
+                    if (this.uploadResult) {
+                        navigator.clipboard.writeText(this.uploadResult).then(() => {
+                            // 可以添加复制成功的提示
+                            const btn = event.target;
+                            const originalText = btn.textContent;
+                            btn.textContent = '已复制！';
+                            setTimeout(() => {
+                                btn.textContent = originalText;
+                            }, 2000);
+                        });
+                    }
+                },
+                openLink() {
+                    if (this.uploadResult) {
+                        window.open(this.uploadResult, '_blank');
+                    }
+                },
+                downLink() {
+                    if (this.uploadResult) {
+                        window.open(this.uploadResult.replace('/tmp', '/tmpd'), '_blank');
+                    }
+                }
+            },
+            mounted() {
+                // 创建背景粒子效果
+                const particlesContainer = document.getElementById('particles');
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 10 + 's';
+                    particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
