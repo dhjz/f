@@ -54,7 +54,7 @@ export async function onRequest(context) {
 
     // 存储压缩后的 ArrayBuffer 和元数据
     await MY_KV.put(key, compressedArrayBuffer, {
-      expiration: 1 * 60 * 60, // 单位秒. 缓存1小时
+      expiration: Math.floor(Date.now() / 1000) + 1 * 60 * 60, // 单位秒. 缓存1小时
       metadata: metadata,
     });
 
