@@ -16,6 +16,10 @@ export async function onRequest(context) {
     if (!file || typeof file === 'string') {
         return new Response('File not found in form data.', { status: 400 });
     }
+    // 文件大小不能超过25M
+    if (file.size > 25 * 1024 * 1024) {
+        return new Response('File size exceeds 25MB limit.', { status: 400 });
+    }
 
     const originalArrayBuffer = await file.arrayBuffer();
     const originalSize = originalArrayBuffer.byteLength;
@@ -50,6 +54,7 @@ export async function onRequest(context) {
 
     // 存储压缩后的 ArrayBuffer 和元数据
     await MY_KV.put(key, compressedArrayBuffer, {
+      expiration: 1 * 60 * 60, // 单位秒. 缓存1小时
       metadata: metadata,
     });
 
