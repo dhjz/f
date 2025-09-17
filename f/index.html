@@ -64,6 +64,7 @@
                 <div class="upload-icon">📁</div>
                 <div class="upload-text">拖拽文件到此处或点击上传</div>
                 <div class="upload-hint">支持所有文件类型，最大支持 25MB</div>
+                <div class="upload-hint">有效期 1 个小时</div>
                 <input type="file" class="file-input" ref="fileInput" @change="handleFileSelect">
             </div>
             
@@ -85,7 +86,7 @@
             <div class="result-section" :class="{ 'active': uploadResult }">
                 <div class="result-title">✅ 上传成功！</div>
                 <div class="result-link">{{ uploadResult }}</div>
-                <button class="copy-btn" @click="copyToClipboard">复制链接</button>
+                <button class="copy-btn" @click="copyToClipboard">复制</button>
                 <button class="copy-btn" @click="openLink">打开</button>
                 <button class="copy-btn" @click="downLink">下载</button>
             </div>
