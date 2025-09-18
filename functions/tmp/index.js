@@ -8,6 +8,8 @@ export async function onRequest(context) {
   try {
     const { request, env } = context;
     const { my_tmp: MY_KV } = env;
+    const params = Object.fromEntries(new URL(request.url).searchParams) || {};
+    let { type } = params
 
     const formData = await request.formData();
     const file = formData.get('file');
@@ -52,11 +54,15 @@ export async function onRequest(context) {
       flag: 'gzip', // **重要：添加一个标志，说明数据是压缩过的**
     };
 
-    // 存储压缩后的 ArrayBuffer 和元数据
-    await MY_KV.put(key, compressedArrayBuffer, {
-      expiration: Math.floor(Date.now() / 1000) + 1 * 60 * 60, // 单位秒. 缓存1小时
+    const options = {
       metadata: metadata,
-    });
+    }
+    if (!type || type != '1') {
+      options.expiration = Math.floor(Date.now() / 1000) + 1 * 60 * 60 // 单位秒. 缓存1小时
+    }
+
+    // 存储压缩后的 ArrayBuffer 和元数据
+    await MY_KV.put(key, compressedArrayBuffer, options);
 
     const responsePayload = {
       code: 200,
