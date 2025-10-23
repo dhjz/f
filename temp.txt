@@ -19,6 +19,7 @@ https://www.15um.com/tools/douyin.php   https://api.xingchenfu.xyz/API/dyjx.php?
 
 ALL_PROXY=http://127.0.0.1:10809 git clone  --depth=1
 $env:HTTP_PROXY="http://127.0.0.1:10809"; $env:HTTPS_PROXY="http://127.0.0.1:10809"; yarn add unplugin-auto-import/vite
+跨域Chrome:  "C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir=E:\AllCache\Chrome --allow-running-insecure-content %1
 
 npm install -g rimraf
 go clean -cache  go clean -modcache
