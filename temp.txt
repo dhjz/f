@@ -11,7 +11,7 @@ GPT: https://chat18.aichatos.xyz/ https://kimi.moonshot.cn/ https://metaso.cn/ h
 github加速: https://github.hscsec.cn/dhjz/dcontrol https://kkgithub.com/ 521github.com
 wol centos https://blog.51cto.com/u_16099249/10059048 zhouqiang ZHOUqiang081522&
 
-https://www.google.cn/chrome/index.html   https://pc.qq.com
+https://www.google.cn/chrome/index.html   https://pc.qq.com  https://sw.pcmgr.qq.com/a98e4bf267850fec1376214dc313d294/69008aaf/spcmgr/download/137.0.7151.69_chrome_installer-win64.exe
 
 https://github.com/dhjz/dcontrol    5600  ‎CC-28-AA-10-E1-80  192.168.1.166  5600g  04421AA96526 192.168.1.111
 
