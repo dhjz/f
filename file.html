@@ -11,10 +11,8 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.5/base64.min.js"></script> -->
   <style>
     * {margin: 0; padding:0; box-sizing: border-box;}
-    html {
-      padding:20px 0 10px;
-    }
-    body { font-size: 16px;max-width: 80%;  margin: 0 auto; }
+    body {  padding:20px 0 10px; font-size: 16px; min-height: 100vh;}
+    .main { max-width: 80%;  margin: 0 auto;  }
     h2 {margin-bottom: 10px;}
     .back {display: inline-block;border: 1px solid #ddd; padding: 4px 8px;font-size: 15px; font-weight: normal;    cursor: pointer; margin-left: 20px; margin-top: 0;}
     input.back { cursor: auto; }
@@ -67,19 +65,21 @@
   </style>
 </head>
 <body ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)">
-  <p style="margin: 0;">版本号: 20241027-1，超过5M过期时间5天，最大支持18M，操作会有几秒延迟</p>
-  <input type="file" id="file" class="filepond" name="filepond" />
-  <h2>当前目录：<i id="repo"></i>
-    <span onclick="document.getElementById('file').click()" class="back">上传文件</span>
-    <span onclick="location.reload()" class="back ftr">刷新</span>
-    <span onclick="toggleWrap()" class="back ftr">分列</span>
-    <!-- <span onclick="history.go(-1)" class="back">返回</span> -->
-    <input type="text" class="back ftr" id="search" placeholder="关键词搜索, 回车确认" onkeyup="search(event)">
-  </h2>
-  <div id="file_wrap">
-    <ul class="file_list" id="file_list">
-      加载中...
-    </ul>
+  <div class="main">
+    <p style="margin: 0;">版本号: 20241027-1，超过5M过期时间5天，最大支持18M，操作会有几秒延迟</p>
+    <input type="file" id="file" class="filepond" name="filepond" />
+    <h2>当前目录：<i id="repo"></i>
+      <span onclick="document.getElementById('file').click()" class="back">上传文件</span>
+      <span onclick="location.reload()" class="back ftr">刷新</span>
+      <span onclick="toggleWrap()" class="back ftr">分列</span>
+      <!-- <span onclick="history.go(-1)" class="back">返回</span> -->
+      <input type="text" class="back ftr" id="search" placeholder="关键词搜索, 回车确认" onkeyup="search(event)">
+    </h2>
+    <div id="file_wrap">
+      <ul class="file_list" id="file_list">
+        加载中...
+      </ul>
+    </div>
   </div>
   <div id="loading" class="hide">处理中...</div>
 
