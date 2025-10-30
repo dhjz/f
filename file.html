@@ -110,8 +110,8 @@
       }
       if (window.fileList.length) document.getElementById('file_list').innerHTML = tempList.map(item => {
         return `<li class="file ${item.ftype}">
-            <a target="_blank" href="#" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}${item.expiration}</span><span class="size">${getUnit(item.size)}</span>
-            <i onclick="copyOne('${item.id}')" class="del">地址</i><i onclick="delOne('${item.key}')" class="del">删除</i>
+            <a href="javascript:void(0);" onclick="downloadFile('${item.key}')">${item.name}</a><span class='sha'>${item.id}${item.expiration}</span><span class="size">${getUnit(item.size)}</span>
+            <i onclick="copyOne('${item.id}')" class="del">地址</i><i onclick="openOne('${item.id}')" class="del">打开</i><i onclick="delOne('${item.key}')" class="del">删除</i>
           </li>`
       }).join('')
     }
@@ -214,6 +214,11 @@
       const str = `${location.origin}/getfile?id=${id}`
       $copy(str)
       dnotify('复制成功: ' + str)
+    }
+
+    function openOne(id) {
+      const str = `${location.origin}/getfile?id=${id}`
+      window.open(str)
     }
 
     function download(blob, name) {
