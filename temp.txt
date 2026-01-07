@@ -14,7 +14,7 @@ wol centos https://blog.51cto.com/u_16099249/10059048 zhouqiang ZHOUqiang081522&
 https://www.google.cn/chrome/index.html   https://pc.qq.com  https://sw.pcmgr.qq.com/a98e4bf267850fec1376214dc313d294/69008aaf/spcmgr/download/137.0.7151.69_chrome_installer-win64.exe
 
 https://github.com/dhjz/dcontrol    5600  ‎CC-28-AA-10-E1-80  192.168.1.166  5600g  04421AA96526 192.168.1.111
-
+idea 插件 jrebel:   http://home.199311.xyz:40033
 trafic 皮肤12 <layout_s width="180" height="25"><cpu x="10" y="3" /><memory x="60" y="3"/><down x="110" y="3" />
 当时网络可能有卡顿,   其实是可以正常访问的1
 https://www.15um.com/tools/douyin.php   https://api.xingchenfu.xyz/API/dyjx.php?url=
