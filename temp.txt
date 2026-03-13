@@ -34,6 +34,6 @@ git fetch origin
 git branch -u origin/master master
 git remote set-head origin -a
 qN2\fD2-eM3(mP4]
-打包下载:  git archive --format=zip --output=../latest.zip HEAD
+打包下载:  git archive --format=zip --output=../latest.zip HEAD    git archive --format=zip --output=../tag.zip tag-init
 
 ffmpeg -i earth_1.png -vf "crop=1920:1830:0:0" output.png
