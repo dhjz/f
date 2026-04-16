@@ -24,6 +24,8 @@ ALL_PROXY=http://192.168.137.1:10809
 $env:HTTP_PROXY="http://127.0.0.1:10809"; $env:HTTPS_PROXY="http://127.0.0.1:10809"; yarn add unplugin-auto-import/vite
 跨域Chrome:  "C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir=E:\AllCache\Chrome --allow-running-insecure-content %1
 
+systemctl daemon-reload   systemctl restart docker
+
 npm install -g rimraf
 go clean -cache  go clean -modcache
 vfox config proxy.enable true
