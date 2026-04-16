@@ -26,6 +26,8 @@ $env:HTTP_PROXY="http://127.0.0.1:10809"; $env:HTTPS_PROXY="http://127.0.0.1:108
 
 systemctl daemon-reload   systemctl restart docker
 
+sed -i 's/\r$//' /data/pgsql/install.sh
+
 npm install -g rimraf
 go clean -cache  go clean -modcache
 vfox config proxy.enable true
