@@ -42,3 +42,6 @@ qN2\fD2-eM3(mP4]
 打包下载:  git archive --format=zip --output=./dist/latest.zip HEAD    git archive --format=zip --output=../tag.zip tag-init
 
 ffmpeg -i earth_1.png -vf "crop=1920:1830:0:0" output.png
+
+# 编译时显式设置 CGO_ENABLED=0
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o my_app main.go ###  go build -ldflags "-s -w -extldflags '-static'" -tags netgo -o my_app main.go
