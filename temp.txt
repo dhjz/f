@@ -28,6 +28,11 @@ systemctl daemon-reload   systemctl restart docker
 
 sed -i 's/\r$//' /data/pgsql/install.sh
 top命令:  CPU 降序排列  P  内存降序排列M   f -> s  指定列排序   e: 切换显示单位
+# 1. 使用 tar 打包目录或文件为指定文件名 (.tar.gz)
+tar -zcvf your_target_name.tar.gz /path/to/dir_or_file
+# 2. 使用 zip 打包目录或文件为指定文件名 (.zip)
+zip -r your_target_name.zip /path/to/dir_or_file
+
 
 npm install -g rimraf
 go clean -cache  go clean -modcache
