@@ -51,3 +51,18 @@ ffmpeg -i earth_1.png -vf "crop=1920:1830:0:0" output.png
 
 # 编译时显式设置 CGO_ENABLED=0
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o my_app main.go ###  go build -ldflags "-s -w -extldflags '-static'" -tags netgo -o my_app main.go
+
+listeners:
+  - name: port_hk
+    type: http
+    port: 10081
+    proxy: "🇸🇬AWS新加坡05 | 电信移动联通推荐"
+  - name: port_us
+    type: http
+    port: 10082
+    proxy: "🇺🇸美国01-0.1倍 | 电信联通移动推荐"
+
+  - name: port_jp
+    type: http
+    port: 10083
+    proxy: "🇯🇵AWS日本06 | 电信移动联通推荐"
