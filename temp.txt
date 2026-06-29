@@ -33,6 +33,12 @@ tar -zcvf your_target_name.tar.gz /path/to/dir_or_file
 # 2. 使用 zip 打包目录或文件为指定文件名 (.zip)
 zip -r your_target_name.zip /path/to/dir_or_file
 
+# 请求头信息
+curl -I https://example.com
+# 显示详细通信过程 (包含请求头、响应头、TLS握手等)
+curl -v https://example.com
+# 免 SSL/HTTPS 证书验证
+curl -k https://example.com
 
 npm install -g rimraf
 go clean -cache  go clean -modcache
