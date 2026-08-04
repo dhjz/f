@@ -25,6 +25,7 @@ $env:HTTP_PROXY="http://127.0.0.1:10809"; $env:HTTPS_PROXY="http://127.0.0.1:108
 跨域Chrome:  "C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir=E:\AllCache\Chrome --allow-running-insecure-content %1
 
 systemctl daemon-reload   systemctl restart docker
+软链接： ln -s /data/web/ypxq /home/user/web
 
 sed -i 's/\r$//' /data/pgsql/install.sh
 top命令:  CPU 降序排列  P  内存降序排列M   f -> s  指定列排序   e: 切换显示单位
