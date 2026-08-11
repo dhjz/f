@@ -41,6 +41,7 @@ curl -v https://example.com
 # 免 SSL/HTTPS 证书验证
 curl -k https://example.com
 curl -L -C - -O https://modelscope.cn/api/v1/models/unsloth/Qwen3.5-0.8B-GGUF/repo?Revision=master&FilePath=Qwen3.5-0.8B-Q4_K_M.gguf
+curl -L -C - -o Qwen3.5-0.8B-Q4_K_M.gguf https://modelscope.cn/api/v1/models/unsloth/Qwen3.5-0.8B-GGUF/repo?Revision=master&FilePath=Qwen3.5-0.8B-Q4_K_M.gguf
 curl -L -C -H "Authorization: Bearer 你的魔搭token" -O "上面的链接"    -L 自动重定向 -C 断点续传
 
 npm install -g rimraf
