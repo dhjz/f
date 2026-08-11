@@ -40,6 +40,7 @@ curl -I https://example.com
 curl -v https://example.com
 # 免 SSL/HTTPS 证书验证
 curl -k https://example.com
+curl -O https://modelscope.cn/api/v1/models/unsloth/Qwen3.5-0.8B-GGUF/repo?Revision=master&FilePath=Qwen3.5-0.8B-Q4_K_M.gguf
 
 npm install -g rimraf
 go clean -cache  go clean -modcache
