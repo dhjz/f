@@ -53,8 +53,8 @@ git branch -m main master
 git fetch origin
 git branch -u origin/master master
 git remote set-head origin -a
-# 撤销最近1次commit，代码/文件放回暂存，不删除文件
-git reset --soft HEAD~1
+# 撤销最近1次commit，代码/文件放回暂存，不删除文件,  后一步, 回到git add . 之前
+git reset --soft HEAD~1          git reset HEAD .
 qN2\fD2-eM3(mP4]
 打包下载:  git archive --format=zip --output=./dist/latest.zip HEAD    git archive --format=zip --output=../tag.zip tag-init
 
