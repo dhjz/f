@@ -27,6 +27,7 @@ $env:HTTP_PROXY="http://127.0.0.1:10809"; $env:HTTPS_PROXY="http://127.0.0.1:108
 
 systemctl daemon-reload   systemctl restart docker
 软链接： ln -s /data/web/ypxq /home/user/web    mklink /D "E:\Program\JAVA\jdk-17.0.12" "D:\Program\java\jdk17"  mklink /D "E:\Program\Apache\maven" "D:\Program\maven"    mklink /D "E:\Program\Apache\mavenrepo" "E:\Program\maven\repo"
+ln -s /etc/systemd/system /opt/system
 
 sed -i 's/\r$//' /data/pgsql/install.sh
 top命令:  CPU 降序排列  P  内存降序排列M   f -> s  指定列排序   e: 切换显示单位
