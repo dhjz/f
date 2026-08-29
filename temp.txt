@@ -36,7 +36,7 @@ tar -zcvf your_target_name.tar.gz /path/to/dir_or_file
 # 2. 使用 zip 打包目录或文件为指定文件名 (.zip)
 zip -r your_target_name.zip /path/to/dir_or_file
 
-docker save $(docker compose images -q) | gzip -c > dify-images.tar.gz
+docker save $(docker compose images -q) | gzip -c > dify-images.tar.gz                    docker update --restart=always small
 gzip -d dify-images.tar.gz
 docker load -i dify-images.tar
 
